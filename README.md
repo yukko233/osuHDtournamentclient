@@ -5,3 +5,4 @@ Windows 10/11 Only
 需要手动编辑.py文件里面的osu文件路径，注意看注释  
 如果安装依赖失败请手动在cmd里输入  
 pip install pywin32  
+关于osu比赛端如何使用，请参阅[https://osu.ppy.sh/wiki/zh/osu!_tournament_client/osu!tourney/Setup  ](https://osu.ppy.sh/wiki/zh/osu%21_tournament_client/osu%21tourney)  
