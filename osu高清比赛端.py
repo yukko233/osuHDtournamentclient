@@ -31,6 +31,9 @@ with open(file_path, "w", encoding="utf-8") as f:
 
 # 打印提示信息
 print("文件复位成功！")
+#启动osu
+os.startfile("D:\\game\\osu比赛端\\osu!.exe")
+print("已启动osu!.exe")
 #-----------------更改分辨率部分---------------------------
 def find_osu_window():
     # 这个函数返回osu窗口的句柄，如果存在的话，否则返回None
