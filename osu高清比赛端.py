@@ -31,7 +31,7 @@ with open(file_path, "w", encoding="utf-8") as f:
 
 # 打印提示信息
 print("文件复位成功！")
-#启动osu
+#启动osu，比赛端路径在此修改
 os.startfile("D:\\game\\osu比赛端\\osu!.exe")
 print("已启动osu!.exe")
 #-----------------更改分辨率部分---------------------------
