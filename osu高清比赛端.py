@@ -72,6 +72,7 @@ while True:
         modify_tournament_cfg()
         print('tournament.cfg修改完成')
         input("按任何键继续...")
+        sys.exit()
         
     else:
         print('osu窗口没找到')
