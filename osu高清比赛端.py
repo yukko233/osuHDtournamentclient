@@ -14,7 +14,7 @@ def generate_lines(height):
     ]
 # 定义manager的分辨率(一般不动)
 lines = generate_lines(864)
-# 把更改后的分辨率填在这里
+# 把更改后的分辨率填在这里(改括号内的数字,一般不动)
 lines2 = generate_lines(1080)
 
 #以下部分不要修改，除非你知道你在干什么
