@@ -1,40 +1,39 @@
 import os
 import time
 import win32gui
-#-----------------复位文件部分---------------------------
-# 请把你比赛端tournament.cfg文件路径填入这里，记得是双斜杠
+# 请把你比赛端tournament.cfg,osu文件路径填入这里，记得是双斜杠
 file_path = "D:\\game\\osu比赛端\\tournament.cfg"
-
+osu_path = "D:\\game\\osu比赛端\\osu!.exe"
 # 定义manager的分辨率，一般只需要改队伍规模以及比赛名字
-new_content = {
-    "TeamSize": "3",
-    "acronym": "ZKFC S2",
-    "Height": "864",
-    "ClientNameSize": "60"
-}
+lines = [
+        "TeamSize = 3",
+        "acronym = ZKFC S2",
+        "Height = 864",
+        "ClientNameSize = 60"
+    ]
+# 把更改后的分辨率以及填在这里(只需要改Height值就行)
+lines2 = [
+        "TeamSize = 3",
+        "acronym = ZKFC S2",
+        "Height = 1080",
+        "ClientNameSize = 60"
+    ]
+#以下部分不要修改，除非你知道你在干什么
 
-# 打开文件，读取原始内容
-with open(file_path, "r", encoding="utf-8") as f:
-    old_content = f.read()
+# -----------------复位文件部分---------------------------
+def resetfile():
+    text = "\n".join(lines)
+	# 打开文件，写入修改后的内容
+    with open(file_path, 'w') as f:
+        f.write(text)
 
-# 遍历要修改的内容，用replace方法替换原始内容中对应的部分
-for key, value in new_content.items():
-    # 构造要替换的字符串，格式为key = value
-    old_string = key + " = " + old_content.split(key + " = ")[1].split("\n")[0]
-    new_string = key + " = " + value
-    # 用新字符串替换旧字符串
-    old_content = old_content.replace(old_string, new_string)
+    # 打印提示信息
+    print("文件复位成功！")
+    # 启动osu，比赛端路径在此修改
+    os.startfile(osu_path)
+    print("已启动osu!.exe")
 
-# 打开文件，写入修改后的内容
-with open(file_path, "w", encoding="utf-8") as f:
-    f.write(old_content)
-
-# 打印提示信息
-print("文件复位成功！")
-#启动osu，比赛端路径在此修改
-os.startfile("D:\\game\\osu比赛端\\osu!.exe")
-print("已启动osu!.exe")
-#-----------------更改分辨率部分---------------------------
+# -----------------更改分辨率部分---------------------------
 def find_osu_window():
     # 这个函数返回osu窗口的句柄，如果存在的话，否则返回None
     def callback(hwnd, hwnds):
@@ -46,26 +45,23 @@ def find_osu_window():
     win32gui.EnumWindows(callback, hwnds)
     return hwnds[0] if hwnds else None
 
-def modify_tournament_cfg():
-    # 请把你比赛端tournament.cfg文件路径填入这里，记得是双斜杠
-    cfg_path = 'D:\\game\\osu比赛端\\tournament.cfg'
-    #把更改后的分辨率以及比赛名称填在这里
-    with open(cfg_path, 'r') as f:
-        lines = f.readlines()
-    with open(cfg_path, 'w') as f:
-        for line in lines:
-            if line.startswith('TeamSize'):
-                line = 'TeamSize = 3\n'
-            elif line.startswith('acronym'):
-                line = 'acronym = ZKFC S2\n'
-            elif line.startswith('Height'):
-                line = 'Height = 1080\n'
-            elif line.startswith('ClientNameSize'):
-                line = 'ClientNameSize = 60\n'
-            f.write(line)
 
+def modify_tournament_cfg():
+    text = "\n".join(lines2)
+	# 打开文件，写入修改后的内容
+    with open(file_path, 'w') as f:
+        f.write(text)
+
+# -----------------判断配置文件是否存在---------------------
+if os.path.isfile(file_path):
+    print("tournament.cfg文件存在")
+    resetfile()
+else:
+    print("tournament.cfg文件不存在，所以我不认为你需要启动比赛端或者你路径填错了")
+    input("按任何键继续...")
+    sys.exit()
+# 这个循环每隔0.5秒检查一次osu窗口是否存在，如果存在就修改tournament.cfg文件
 while True:
-    # 这个循环每隔0.5秒检查一次osu窗口是否存在，如果存在就修改tournament.cfg文件
     hwnd = find_osu_window()
     if hwnd:
         print('osu窗口找到了')
@@ -73,7 +69,7 @@ while True:
         print('tournament.cfg修改完成')
         input("按任何键继续...")
         sys.exit()
-        
+
     else:
         print('osu窗口没找到')
-        time.sleep(0.5) # 等待0.5秒
+        time.sleep(0.5)  # 等待0.5秒
