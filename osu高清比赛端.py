@@ -29,7 +29,6 @@ def resetfile():
 
     # 打印提示信息
     print("文件复位成功！")
-    # 启动osu，比赛端路径在此修改
     os.startfile(osu_path)
     print("已启动osu!.exe")
 
