@@ -4,20 +4,19 @@ import win32gui
 # 请把你比赛端tournament.cfg,osu文件路径填入这里，记得是双斜杠
 file_path = "D:\\game\\osu比赛端\\tournament.cfg"
 osu_path = "D:\\game\\osu比赛端\\osu!.exe"
-# 定义manager的分辨率，一般只需要改队伍规模以及比赛名字
-lines = [
+def generate_lines(height):
+    # 请把你的比赛名称以及队伍规模填在这里
+    return [
         "TeamSize = 3",
         "acronym = ZKFC S2",
-        "Height = 864",
+        "Height = " + str(height),
         "ClientNameSize = 60"
     ]
-# 把更改后的分辨率以及填在这里(只需要改Height值就行)
-lines2 = [
-        "TeamSize = 3",
-        "acronym = ZKFC S2",
-        "Height = 1080",
-        "ClientNameSize = 60"
-    ]
+# 定义manager的分辨率(一般不动)
+lines = generate_lines(864)
+# 把更改后的分辨率填在这里
+lines2 = generate_lines(1080)
+
 #以下部分不要修改，除非你知道你在干什么
 
 # -----------------复位文件部分---------------------------
